@@ -6,7 +6,7 @@ The environment includes :
 
 4. a script that generates X.509 certificates + configuration
 
-                                             CASE             | Description
+                                             CASE          | Description
                                              ------------- | -------------
                                              CASE 1        | VALID
                                              CASE 2        | EXPIRED
