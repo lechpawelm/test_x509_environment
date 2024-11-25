@@ -1,10 +1,12 @@
 X.509 certificate validation testing environment. 
 The environment includes : 
 1. docker container with Nginx server instance with TLS / mTLS on separate ports
-2. instances of MariaDB
-3. a script that generates X.509 certificates + configuration
+2. instances of MariaDB with 2 variant authentication plugin - auth_plugin_ed25519 / mysql_native_password
+   ![Zrzut ekranu 2024-11-26 002419](https://github.com/user-attachments/assets/35ccdd0f-dd95-42e3-b827-01b0fa4caf5e)
 
-First Header  | Second Header
+4. a script that generates X.509 certificates + configuration
+
+#             | Description
 ------------- | -------------
 CASE 1        | VALID
 CASE 2        | EXPIRED
