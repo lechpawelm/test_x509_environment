@@ -1,0 +1,3 @@
+CREATE USER 'user2_mariadb'@'%' IDENTIFIED VIA ed25519 USING PASSWORD ('') REQUIRE SSL;
+GRANT ALL ON test_mariadb_2.* TO 'user2_mariadb'@'%';
+FLUSH PRIVILEGES;

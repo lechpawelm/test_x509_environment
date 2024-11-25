@@ -1,0 +1,490 @@
+version: '3.5'
+
+x-volumes:
+   &shared-volume
+   type: bind
+   source: ./crypto/CA
+   target: /etc/ssl/CA
+   read_only: true
+
+services:
+  tls-nginx-1:
+    image: nginx:latest
+    container_name: nginx-x509-env
+    restart: always
+    ports:
+      - '443-470:443-470'
+    expose:
+      - '443-470'
+    volumes:
+    - ./nginx/nginx:/etc/nginx/:ro
+    - ./nginx/index.html:/var/www/html/index.html:ro
+    - ./crypto/nginx/:/etc/ssl/nginx/:ro
+    - *shared-volume
+    
+    
+  tls-mariadb-1:
+    image: mariadb:10.6.17-focal
+    container_name: tls-mariadb-1
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'test_mariadb_1'
+      MYSQL_ROOT_PASSWORD: ''
+    ports:
+      - '3321:3321'
+    expose:
+      - '3321'
+    volumes:
+      - ./mariadb/test1/tls.cnf:/etc/mysql/conf.d/tls.cnf:ro
+      - ./mariadb/test1/init:/docker-entrypoint-initdb.d
+      - ./crypto/mariadb/certificates/mariadb_1.crt:/etc/ssl/mariadb/mariadb_1.crt:ro
+      - ./crypto/mariadb/keys/private_key_1.pem:/etc/ssl/mariadb/private_key_1.pem:ro
+      - *shared-volume
+       
+  tls-mariadb-2:
+    image: mariadb:10.6.17-focal
+    container_name: tls-mariadb-2
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'test_mariadb_2'
+      MYSQL_ROOT_PASSWORD: ''
+    ports:
+      - '3322:3322'
+    expose:
+      - '3322'
+    volumes:
+      - ./mariadb/test2/tls.cnf:/etc/mysql/conf.d/tls.cnf:ro
+      - ./mariadb/test2/init:/docker-entrypoint-initdb.d
+      - ./crypto/mariadb/certificates/mariadb_2.crt:/etc/ssl/mariadb/mariadb_2.crt:ro
+      - ./crypto/mariadb/keys/private_key_2.pem:/etc/ssl/mariadb/private_key_2.pem:ro
+      - *shared-volume
+      
+  tls-mariadb-3:
+    image: mariadb:10.6.17-focal
+    container_name: tls-mariadb-3
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'test_mariadb_3'
+      MYSQL_ROOT_PASSWORD: ''
+    ports:
+      - '3323:3323'
+    expose:
+      - '3323'
+    volumes:
+      - ./mariadb/test3/tls.cnf:/etc/mysql/conf.d/tls.cnf:ro
+      - ./mariadb/test3/init:/docker-entrypoint-initdb.d
+      - ./crypto/mariadb/certificates/mariadb_3.crt:/etc/ssl/mariadb/mariadb_3.crt:ro
+      - ./crypto/mariadb/keys/private_key_3.pem:/etc/ssl/mariadb/private_key_3.pem:ro
+      - *shared-volume
+      
+  tls-mariadb-4:
+    image: mariadb:10.6.17-focal
+    container_name: tls-mariadb-4
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'test_mariadb_4'
+      MYSQL_ROOT_PASSWORD: ''
+    ports:
+      - '3324:3324'
+    expose:
+      - '3324'
+    volumes:
+      - ./mariadb/test4/tls.cnf:/etc/mysql/conf.d/tls.cnf:ro
+      - ./mariadb/test4/init:/docker-entrypoint-initdb.d
+      - ./crypto/mariadb/certificates/mariadb_4.crt:/etc/ssl/mariadb/mariadb_4.crt:ro
+      - ./crypto/mariadb/keys/private_key_4.pem:/etc/ssl/mariadb/private_key_4.pem:ro
+      - *shared-volume
+      
+  tls-mariadb-5:
+    image: mariadb:10.6.17-focal
+    container_name: tls-mariadb-5
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'test_mariadb_5'
+      MYSQL_ROOT_PASSWORD: ''
+    ports:
+      - '3325:3325'
+    expose:
+      - '3325'
+    volumes:
+      - ./mariadb/test5/tls.cnf:/etc/mysql/conf.d/tls.cnf:ro
+      - ./mariadb/test5/init:/docker-entrypoint-initdb.d
+      - ./crypto/mariadb/certificates/mariadb_5.crt:/etc/ssl/mariadb/mariadb_5.crt:ro
+      - ./crypto/mariadb/keys/private_key_5.pem:/etc/ssl/mariadb/private_key_5.pem:ro
+      - *shared-volume
+      
+  tls-mariadb-6:
+    image: mariadb:10.6.17-focal
+    container_name: tls-mariadb-6
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'test_mariadb_6'
+      MYSQL_ROOT_PASSWORD: ''
+    ports:
+      - '3326:3326'
+    expose:
+      - '3326'
+    volumes:
+      - ./mariadb/test6/tls.cnf:/etc/mysql/conf.d/tls.cnf:ro
+      - ./mariadb/test6/init:/docker-entrypoint-initdb.d
+      - ./crypto/mariadb/certificates/mariadb_6.crt:/etc/ssl/mariadb/mariadb_6.crt:ro
+      - ./crypto/mariadb/keys/private_key_6.pem:/etc/ssl/mariadb/private_key_6.pem:ro
+      - *shared-volume
+      
+  tls-mariadb-7:
+    image: mariadb:10.6.17-focal
+    container_name: tls-mariadb-7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'test_mariadb_7'
+      MYSQL_ROOT_PASSWORD: ''
+    ports:
+      - '3327:3327'
+    expose:
+      - '3327'
+    volumes:
+      - ./mariadb/test7/tls.cnf:/etc/mysql/conf.d/tls.cnf:ro
+      - ./mariadb/test7/init:/docker-entrypoint-initdb.d
+      - ./crypto/mariadb/certificates/mariadb_7.crt:/etc/ssl/mariadb/mariadb_7.crt:ro
+      - ./crypto/mariadb/keys/private_key_7.pem:/etc/ssl/mariadb/private_key_7.pem:ro
+      - *shared-volume
+      
+  tls-mariadb-8:
+    image: mariadb:10.6.17-focal
+    container_name: tls-mariadb-8
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'test_mariadb_8'
+      MYSQL_ROOT_PASSWORD: ''
+    ports:
+      - '3328:3328'
+    expose:
+      - '3328'
+    volumes:
+      - ./mariadb/test8/tls.cnf:/etc/mysql/conf.d/tls.cnf:ro
+      - ./mariadb/test8/init:/docker-entrypoint-initdb.d
+      - ./crypto/mariadb/certificates/mariadb_8.crt:/etc/ssl/mariadb/mariadb_8.crt:ro
+      - ./crypto/mariadb/keys/private_key_8.pem:/etc/ssl/mariadb/private_key_8.pem:ro
+      - *shared-volume
+      
+      
+  tls-mariadb-9:
+    image: mariadb:10.6.17-focal
+    container_name: tls-mariadb-9
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'test_mariadb_9'
+      MYSQL_ROOT_PASSWORD: ''
+    ports:
+      - '3329:3329'
+    expose:
+      - '3329'
+    volumes:
+      - ./mariadb/test9/tls.cnf:/etc/mysql/conf.d/tls.cnf:ro
+      - ./mariadb/test9/init:/docker-entrypoint-initdb.d
+      - ./crypto/mariadb/certificates/mariadb_9.crt:/etc/ssl/mariadb/mariadb_9.crt:ro
+      - ./crypto/mariadb/keys/private_key_9.pem:/etc/ssl/mariadb/private_key_9.pem:ro
+      - *shared-volume
+      
+      
+  tls-mariadb-10:
+    image: mariadb:10.6.17-focal
+    container_name: tls-mariadb-10
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'test_mariadb_10'
+      MYSQL_ROOT_PASSWORD: ''
+    ports:
+      - '3330:3330'
+    expose:
+      - '3330'
+    volumes:
+      - ./mariadb/test10/tls.cnf:/etc/mysql/conf.d/tls.cnf:ro
+      - ./mariadb/test10/init:/docker-entrypoint-initdb.d
+      - ./crypto/mariadb/certificates/mariadb_10.crt:/etc/ssl/mariadb/mariadb_10.crt:ro
+      - ./crypto/mariadb/keys/private_key_10.pem:/etc/ssl/mariadb/private_key_10.pem:ro
+      - *shared-volume
+      
+      
+  tls-mariadb-11:
+    image: mariadb:10.6.17-focal
+    container_name: tls-mariadb-11
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'test_mariadb_11'
+      MYSQL_ROOT_PASSWORD: ''
+    ports:
+      - '3331:3331'
+    expose:
+      - '3331'
+    volumes:
+      - ./mariadb/test11/tls.cnf:/etc/mysql/conf.d/tls.cnf:ro
+      - ./mariadb/test11/init:/docker-entrypoint-initdb.d
+      - ./crypto/mariadb/certificates/mariadb_11.crt:/etc/ssl/mariadb/mariadb_11.crt:ro
+      - ./crypto/mariadb/keys/private_key_11.pem:/etc/ssl/mariadb/private_key_11.pem:ro
+      - *shared-volume
+      
+      
+  tls-mariadb-12:
+    image: mariadb:10.6.17-focal
+    container_name: tls-mariadb-12
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'test_mariadb_12'
+      MYSQL_ROOT_PASSWORD: ''
+    ports:
+      - '3332:3332'
+    expose:
+      - '3332'
+    volumes:
+      - ./mariadb/test12/tls.cnf:/etc/mysql/conf.d/tls.cnf:ro
+      - ./mariadb/test12/init:/docker-entrypoint-initdb.d
+      - ./crypto/mariadb/certificates/mariadb_12.crt:/etc/ssl/mariadb/mariadb_12.crt:ro
+      - ./crypto/mariadb/keys/private_key_12.pem:/etc/ssl/mariadb/private_key_12.pem:ro
+      - *shared-volume
+      
+      
+  tls-mariadb-13:
+    image: mariadb:10.6.17-focal
+    container_name: tls-mariadb-13
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'test_mariadb_13'
+      MYSQL_ROOT_PASSWORD: ''
+    ports:
+      - '3333:3333'
+    expose:
+      - '3333'
+    volumes:
+      - ./mariadb/test13/tls.cnf:/etc/mysql/conf.d/tls.cnf:ro
+      - ./mariadb/test13/init:/docker-entrypoint-initdb.d
+      - ./crypto/mariadb/certificates/mariadb_13.crt:/etc/ssl/mariadb/mariadb_13.crt:ro
+      - ./crypto/mariadb/keys/private_key_13.pem:/etc/ssl/mariadb/private_key_13.pem:ro
+      - *shared-volume
+      
+      
+  tls-mariadb-14:
+    image: mariadb:10.6.17-focal
+    container_name: tls-mariadb-14
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'test_mariadb_14'
+      MYSQL_ROOT_PASSWORD: ''
+    ports:
+      - '3334:3334'
+    expose:
+      - '3334'
+    volumes:
+      - ./mariadb/test14/tls.cnf:/etc/mysql/conf.d/tls.cnf:ro
+      - ./mariadb/test14/init:/docker-entrypoint-initdb.d
+      - ./crypto/mariadb/certificates/mariadb_14.crt:/etc/ssl/mariadb/mariadb_14.crt:ro
+      - ./crypto/mariadb/keys/private_key_14.pem:/etc/ssl/mariadb/private_key_14.pem:ro
+      - *shared-volume
+      
+      
+  tls-mariadb-15:
+    image: mariadb:10.6.17-focal
+    container_name: tls-mariadb-15
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'test_mariadb_15'
+      MYSQL_ROOT_PASSWORD: ''
+    ports:
+      - '3335:3335'
+    expose:
+      - '3335'
+    volumes:
+      - ./mariadb/test15/tls.cnf:/etc/mysql/conf.d/tls.cnf:ro
+      - ./mariadb/test15/init:/docker-entrypoint-initdb.d
+      - ./crypto/mariadb/certificates/mariadb_15.crt:/etc/ssl/mariadb/mariadb_15.crt:ro
+      - ./crypto/mariadb/keys/private_key_15.pem:/etc/ssl/mariadb/private_key_15.pem:ro
+      - *shared-volume
+      
+  tls-mariadb-16:
+    image: mariadb:10.6.17-focal
+    container_name: tls-mariadb-16
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'test_mariadb_16'
+      MYSQL_ROOT_PASSWORD: ''
+    ports:
+      - '3336:3336'
+    expose:
+      - '3336'
+    volumes:
+      - ./mariadb/test16/tls.cnf:/etc/mysql/conf.d/tls.cnf:ro
+      - ./mariadb/test16/init:/docker-entrypoint-initdb.d
+      - ./crypto/mariadb/certificates/mariadb_16.crt:/etc/ssl/mariadb/mariadb_16.crt:ro
+      - ./crypto/mariadb/keys/private_key_16.pem:/etc/ssl/mariadb/private_key_16.pem:ro
+      - *shared-volume
+      
+      
+  tls-mariadb-17:
+    image: mariadb:10.6.17-focal
+    container_name: tls-mariadb-17
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'test_mariadb_17'
+      MYSQL_ROOT_PASSWORD: ''
+    ports:
+      - '3337:3337'
+    expose:
+      - '3337'
+    volumes:
+      - ./mariadb/test17/tls.cnf:/etc/mysql/conf.d/tls.cnf:ro
+      - ./mariadb/test17/init:/docker-entrypoint-initdb.d
+      - ./crypto/mariadb/certificates/mariadb_17.crt:/etc/ssl/mariadb/mariadb_17.crt:ro
+      - ./crypto/mariadb/keys/private_key_17.pem:/etc/ssl/mariadb/private_key_17.pem:ro
+      - *shared-volume
+      
+  tls-mariadb-18:
+    image: mariadb:10.6.17-focal
+    container_name: tls-mariadb-18
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'test_mariadb_18'
+      MYSQL_ROOT_PASSWORD: ''
+    ports:
+      - '3338:3338'
+    expose:
+      - '3338'
+    volumes:
+      - ./mariadb/test18/tls.cnf:/etc/mysql/conf.d/tls.cnf:ro
+      - ./mariadb/test18/init:/docker-entrypoint-initdb.d
+      - ./crypto/mariadb/certificates/mariadb_18.crt:/etc/ssl/mariadb/mariadb_18.crt:ro
+      - ./crypto/mariadb/keys/private_key_18.pem:/etc/ssl/mariadb/private_key_18.pem:ro
+      - *shared-volume
+      
+      
+  tls-mariadb-19:
+    image: mariadb:10.6.17-focal
+    container_name: tls-mariadb-19
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'test_mariadb_19'
+      MYSQL_ROOT_PASSWORD: ''
+    ports:
+      - '3339:3339'
+    expose:
+      - '3339'
+    volumes:
+      - ./mariadb/test19/tls.cnf:/etc/mysql/conf.d/tls.cnf:ro
+      - ./mariadb/test19/init:/docker-entrypoint-initdb.d
+      - ./crypto/mariadb/certificates/mariadb_19.crt:/etc/ssl/mariadb/mariadb_19.crt:ro
+      - ./crypto/mariadb/keys/private_key_19.pem:/etc/ssl/mariadb/private_key_19.pem:ro
+      - *shared-volume
+      
+      
+  tls-mariadb-20:
+    image: mariadb:10.6.17-focal
+    container_name: tls-mariadb-20
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'test_mariadb_20'
+      MYSQL_ROOT_PASSWORD: ''
+    ports:
+      - '3340:3340'
+    expose:
+      - '3340'
+    volumes:
+      - ./mariadb/test20/tls.cnf:/etc/mysql/conf.d/tls.cnf:ro
+      - ./mariadb/test20/init:/docker-entrypoint-initdb.d
+      - ./crypto/mariadb/certificates/mariadb_20.crt:/etc/ssl/mariadb/mariadb_20.crt:ro
+      - ./crypto/mariadb/keys/private_key_20.pem:/etc/ssl/mariadb/private_key_20.pem:ro
+      - *shared-volume
+      
+      
+  tls-mariadb-21:
+    image: mariadb:10.6.17-focal
+    container_name: tls-mariadb-21
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'test_mariadb_21'
+      MYSQL_ROOT_PASSWORD: ''
+    ports:
+      - '3341:3341'
+    expose:
+      - '3341'
+    volumes:
+      - ./mariadb/test21/tls.cnf:/etc/mysql/conf.d/tls.cnf:ro
+      - ./mariadb/test21/init:/docker-entrypoint-initdb.d
+      - ./crypto/mariadb/certificates/mariadb_21.crt:/etc/ssl/mariadb/mariadb_21.crt:ro
+      - ./crypto/mariadb/keys/private_key_21.pem:/etc/ssl/mariadb/private_key_21.pem:ro
+      - *shared-volume
+      
+  tls-mariadb-22:
+    image: mariadb:10.6.17-focal
+    container_name: tls-mariadb-22
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'test_mariadb_22'
+      MYSQL_ROOT_PASSWORD: ''
+    ports:
+      - '3342:3342'
+    expose:
+      - '3342'
+    volumes:
+      - ./mariadb/test22/tls.cnf:/etc/mysql/conf.d/tls.cnf:ro
+      - ./mariadb/test22/init:/docker-entrypoint-initdb.d
+      - ./crypto/mariadb/certificates/mariadb_22.crt:/etc/ssl/mariadb/mariadb_22.crt:ro
+      - ./crypto/mariadb/keys/private_key_22.pem:/etc/ssl/mariadb/private_key_22.pem:ro
+      - *shared-volume
+      
+      
+  tls-mariadb-23:
+    image: mariadb:10.6.17-focal
+    container_name: tls-mariadb-23
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'test_mariadb_23'
+      MYSQL_ROOT_PASSWORD: ''
+    ports:
+      - '3343:3343'
+    expose:
+      - '3343'
+    volumes:
+      - ./mariadb/test23/tls.cnf:/etc/mysql/conf.d/tls.cnf:ro
+      - ./mariadb/test23/init:/docker-entrypoint-initdb.d
+      - ./crypto/mariadb/certificates/mariadb_23.crt:/etc/ssl/mariadb/mariadb_23.crt:ro
+      - ./crypto/mariadb/keys/private_key_23.pem:/etc/ssl/mariadb/private_key_23.pem:ro
+      - *shared-volume
+      
+      
+  tls-mariadb-24:
+    image: mariadb:10.6.17-focal
+    container_name: tls-mariadb-24
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'test_mariadb_24'
+      MYSQL_ROOT_PASSWORD: ''
+    ports:
+      - '3344:3344'
+    expose:
+      - '3344'
+    volumes:
+      - ./mariadb/test24/tls.cnf:/etc/mysql/conf.d/tls.cnf:ro
+      - ./mariadb/test24/init:/docker-entrypoint-initdb.d
+      - ./crypto/mariadb/certificates/mariadb_24.crt:/etc/ssl/mariadb/mariadb_24.crt:ro
+      - ./crypto/mariadb/keys/private_key_24.pem:/etc/ssl/mariadb/private_key_24.pem:ro
+      - *shared-volume
+      
+      
+      
+      
+      
+      
+      
+    
+      
+      
+
+
+
+
+
+      
+      
+  
+  
+      
+
